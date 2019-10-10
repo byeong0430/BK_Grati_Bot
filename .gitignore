@@ -1,0 +1,11 @@
+node_modules/
+.vscode
+dist/
+npm-debug.log
+.env
+yarn-error.log
+.DS_Store
+*.zip
+yarn--*
+.vscode
+.prettierrc.yaml

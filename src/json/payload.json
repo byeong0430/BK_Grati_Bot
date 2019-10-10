@@ -1,0 +1,63 @@
+{
+  "resource": "/",
+  "path": "/",
+  "httpMethod": "POST",
+  "headers":
+  {
+    "Accept-Encoding": "gzip, deflate",
+    "Content-Type": "application/json",
+    "Host": "a5x14aoend.execute-api.ca-central-1.amazonaws.com",
+    "X-Amzn-Trace-Id": "Root=1-5d6d3a39-d7cb85ed5f702ab5bdda7e5d",
+    "X-Forwarded-For": "91.108.6.78",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders":
+  {
+    "Accept-Encoding": ["gzip, deflate"],
+    "Content-Type": ["application/json"],
+    "Host": ["a5x14aoend.execute-api.ca-central-1.amazonaws.com"],
+    "X-Amzn-Trace-Id": ["Root=1-5d6d3a39-d7cb85ed5f702ab5bdda7e5d"],
+    "X-Forwarded-For": ["91.108.6.78"],
+    "X-Forwarded-Port": ["443"],
+    "X-Forwarded-Proto": ["https"]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext":
+  {
+    "resourceId": "jokilik9lh",
+    "resourcePath": "/",
+    "httpMethod": "POST",
+    "extendedRequestId": "fZYJBEO6YosFeew=",
+    "requestTime": "02/Sep/2019:15:50:17 +0000",
+    "path": "/test",
+    "accountId": "238694409364",
+    "protocol": "HTTP/1.1",
+    "stage": "test",
+    "domainPrefix": "a5x14aoend",
+    "requestTimeEpoch": 1567439417745,
+    "requestId": "5c8570a0-cd99-11e9-b544-278886923c43",
+    "identity":
+    {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "91.108.6.78",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": null,
+      "user": null
+    },
+    "domainName": "a5x14aoend.execute-api.ca-central-1.amazonaws.com",
+    "apiId": "a5x14aoend"
+  },
+  "body": "{\"update_id\":539026673,\n\"message\":{\"message_id\":30,\"from\":{\"id\":217040654,\"is_bot\":false,\"first_name\":\"Byeong\",\"last_name\":\"Kim\",\"username\":\"bk0430\",\"language_code\":\"en\"},\"chat\":{\"id\":217040654,\"first_name\":\"Byeong\",\"last_name\":\"Kim\",\"username\":\"bk0430\",\"type\":\"private\"},\"date\":1567439417,\"text\":\"@bk_grati_bot subscribe\"}}",
+  "isBase64Encoded": false
+}
