@@ -13,10 +13,13 @@ export const TelegramAPI = {
     }
 
     try {
-      return await telegramAxios.get(telegramRoutes.GET_UPDATES, { params })
+      const res = await telegramAxios.get(telegramRoutes.GET_UPDATES, { params })
+      console.log(`STATUS: ${res.status}, DATA: ${JSON.stringify(res.data)}`)
+      return res
     } catch (error) {
-      const parsedError = parseError(error)
-      console.log(parsedError)
+      const parsedError = `FUNCTION: getUpdates, ${parseError(error)}`
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
       return parsedError
     }
   },
@@ -29,10 +32,13 @@ export const TelegramAPI = {
     }
 
     try {
-      return await telegramAxios.get(telegramRoutes.SEND_MESSAGE, { params })
+      const res = await telegramAxios.get(telegramRoutes.SEND_MESSAGE, { params })
+      console.log(`STATUS: ${res.status}, DATA: ${JSON.stringify(res.data)}`)
+      return res
     } catch (error) {
-      const parsedError = parseError(error)
-      console.log(parsedError)
+      const parsedError = `FUNCTION: sendText, ${parseError(error)}`
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
       return parsedError
     }
   }

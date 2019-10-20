@@ -132,7 +132,10 @@ export class TelegramMessage implements Update {
     try {
       await TelegramAPI.sendText(chat.id, text, { inline_keyboard: this.keyboardOptions })
     } catch (error) {
-      console.log(parseError(error))
+      const parsedError = `FUNCTION: askSchedule, ${parseError(error)}`
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
+      return parsedError
     }
   }
 
@@ -143,7 +146,10 @@ export class TelegramMessage implements Update {
     try {
       await TelegramAPI.sendText(chat.id, text, { force_reply: true })
     } catch (error) {
-      console.log(parseError(error))
+      const parsedError = `FUNCTION: record, ${parseError(error)}`
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
+      return parsedError
     }
   }
 
@@ -162,11 +168,16 @@ export class TelegramMessage implements Update {
     try {
       await this.updateSchedule(this.callback_query.from, data)
 
-      console.log('REPLY ADDED')
+      console.log('SCHEDULE UPDATED!')
       
       await TelegramAPI.sendText(message.chat.id, text)
+
+      console.log('REPLY SENT BACK TO TELEGRAM')
     } catch (error) {
-      console.log(parseError(error))
+      const parsedError = `FUNCTION: reply, ${parseError(error)}`
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
+      return parsedError
     }
   }
 
@@ -182,7 +193,16 @@ export class TelegramMessage implements Update {
     const { id, first_name } = from
     const sheetTitle = `${id}_${first_name}`
     const sheetExists = await GSheetAPI.checkSheetExists(sheetTitle)
-    const timestamp = new Date().toDateString()
+    const timestamp = new Date().toLocaleDateString('en-US', {  
+      day : 'numeric',
+      month : 'short',
+      year : 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZone: 'America/Vancouver',
+      timeZoneName: 'short'
+    })
 
     if (!sheetExists) {
       await GSheetAPI.createSheet(sheetTitle)
@@ -206,6 +226,5 @@ export class TelegramMessage implements Update {
     await GSheetAPI.update(sheetTitle, 'A1:C1', [
       ['Reminder at', data, `${scheduleHour}h`]
     ])
-    
   }
 }
