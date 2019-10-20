@@ -1,7 +1,6 @@
 import { sheets } from '../configs/googleSheet'
 import { parseError } from "../utils/helpers"
 import { CreateAppendQueryParams, InsertDataOption, Dimension, CreateUpdateQueryParams } from '../models/GoogleSheet/GoogleSheet'
-import { sheets_v4 } from 'googleapis'
 
 /**
  * Google Sheet API Doc: https://developers.google.com/sheets/api/reference/rest/
@@ -27,11 +26,13 @@ export const GSheetAPI = {
       return res.data
     } catch (error) {
       const parsedError = `FUNCTION: createSheet, ${parseError(error)}`
-      console.log(parsedError)
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
+      return parsedError
     }
   },
 
-  getSheetInfo: async (): Promise<sheets_v4.Schema$Sheet[] | undefined> => {
+  getSheetInfo: async () => {
     try {
       const res = await sheets.spreadsheets.get({
         spreadsheetId: process.env.GOOGLE_SHEET_SPREADSHEET_ID,
@@ -42,16 +43,27 @@ export const GSheetAPI = {
       return res.data.sheets
     } catch (error) {
       const parsedError = `FUNCTION: getSheetInfo, ${parseError(error)}`
-      console.log(parsedError)
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
+      return parsedError
     }
   },
 
   checkSheetExists: async (title: string) => {
-    const sheetInfo = await GSheetAPI.getSheetInfo()
-    
-    if (!sheetInfo) return false
-
-    return sheetInfo.some((sheet) => sheet.properties?.title === title)
+    try {
+      const sheetInfo = await GSheetAPI.getSheetInfo()
+      
+      if (!sheetInfo) return false
+      
+      return Array.isArray(sheetInfo)
+        ? sheetInfo.some((sheet) => sheet.properties?.title === title)
+        : false
+    } catch (error) {
+      const parsedError = `FUNCTION: checkSheetExists, ${parseError(error)}`
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
+      return parsedError
+    }
   },
 
   readSheet: async () => {
@@ -64,7 +76,7 @@ export const GSheetAPI = {
       const rows = res.data.values
 
       if (!rows || rows && rows.length === 0) {
-        return console.log('No data found!')
+        return console.error('No data found!')
       }
 
       // Print columns A and E, which correspond to indices 0 and 4.
@@ -72,7 +84,9 @@ export const GSheetAPI = {
       console.log({ rowdata })
     } catch (error) {
       const parsedError = `FUNCTION: readSheet, ${parseError(error)}`
-      console.log(parsedError)
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
+      return parsedError
     }
   },
 
@@ -94,7 +108,8 @@ export const GSheetAPI = {
       return res.data
     } catch (error) {
       const parsedError = `FUNCTION: update, ${parseError(error)}`
-      console.log(parsedError)
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
       return parsedError
     }
   },
@@ -118,7 +133,8 @@ export const GSheetAPI = {
       return res.data
     } catch (error) {
       const parsedError = `FUNCTION: appendToSheet, ${parseError(error)}`
-      console.log(parsedError)
+      console.error(parsedError)
+      console.error(`ERROR PAYLOAD: ${error}`)
       return parsedError
     }
   }
