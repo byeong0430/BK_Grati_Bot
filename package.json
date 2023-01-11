@@ -25,7 +25,7 @@
     "@types/mocha": "^5.2.7",
     "aws-xray-sdk": "^2.3.5",
     "axios": "^0.18.1",
-    "class-validator": "^0.10.1",
+    "class-validator": "^0.14.0",
     "copy-dir": "^1.2.0",
     "dotenv": "^8.1.0",
     "googleapis": "^43.0.0",
